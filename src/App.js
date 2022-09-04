@@ -2,7 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 
-import {Login,  Register} from './components'
+import {Login,  Register, NotFoundPage} from './components'
 function App() {
   return (
     <div>
@@ -10,6 +10,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Login/>}/>
           <Route path="/register" element={<Register/>}/>
+          <Route path="/*" element={<NotFoundPage/>}/>
         </Routes>
       </Router>
     </div>
