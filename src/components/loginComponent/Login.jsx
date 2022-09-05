@@ -4,6 +4,8 @@ import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 function Login() {
+  const session = window.sessionStorage;
+  console.log('session storage email in login page', session.getItem('email'));
   return (
     <div className="plannet_web_login">
       <div className="plannet_web_notifications"></div>
@@ -21,7 +23,7 @@ function Login() {
               </Form.Group>
             </Card.Text>
             <Button variant="primary">Next</Button>
-            <Card.Text><Form.Text>If you are not a member <a href="#">Register here</a></Form.Text></Card.Text>
+            <Card.Text><Form.Text>If you are not a member <a href="/register">Register here</a></Form.Text></Card.Text>
             
           </Card.Body>
         </Card>
