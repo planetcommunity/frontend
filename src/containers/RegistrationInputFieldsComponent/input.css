@@ -1,0 +1,13 @@
+#input_card_elements_next{
+    color: white;
+    box-shadow: none !important;
+    background-color: #000 !important;
+    margin-left: 200px;
+    width: 75px;
+}
+
+.mb-3{
+    border-style: solid !important;
+    border-width: thin !important;
+    border-radius: 5px !important;
+}

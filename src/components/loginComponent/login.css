@@ -11,13 +11,12 @@
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center center;
-  z-index: -1;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .plannet_web_logins_item{
-width: 300px;
-  z-index: 1;
+  width: 300px;
+  
 }
