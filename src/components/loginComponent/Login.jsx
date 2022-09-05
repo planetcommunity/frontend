@@ -5,6 +5,8 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { NavLink } from "react-router-dom";
 function Login() {
+  const session = window.sessionStorage;
+  console.log("session storage email in login page", session.getItem("email"));
   return (
     <div className="plannet_web_login">
       <div className="plannet_web_notifications"></div>
@@ -12,7 +14,6 @@ function Login() {
         <Card className="text-center">
           <Card.Header>Login</Card.Header>
           <Card.Body>
-            
             <Card.Text>
               <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Control type="email" placeholder="Email" />
@@ -23,8 +24,12 @@ function Login() {
               </Form.Group>
             </Card.Text>
             <Button variant="primary">Next</Button>
-            <Card.Text><Form.Text>If you are not a member <NavLink to="/register">Register Here</NavLink></Form.Text></Card.Text>
-            
+            <Card.Text>
+              <Form.Text>
+                If you are not a member{" "}
+                <NavLink to="/register">Register Here</NavLink>
+              </Form.Text>
+            </Card.Text>
           </Card.Body>
         </Card>
       </div>

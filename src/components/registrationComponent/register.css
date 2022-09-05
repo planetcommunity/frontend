@@ -7,6 +7,12 @@
    
 }
 
+.plannet_web_notifications{
+   position: absolute;
+   top: 8px;
+   right: 16px;
+}
+
 .card__body{
    margin-top: 1rem !important;
    padding: 1rem !important;
