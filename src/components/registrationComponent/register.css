@@ -1,6 +1,6 @@
 
 .text-center{
-   
+
    border-color: black !important;
    border-style: solid !important;
     border-width: thin !important;
@@ -8,6 +8,6 @@
 }
 
 .card__body{
-   margin-top: 2rem !important;
-   padding: 2rem !important;
+   margin-top: 1rem !important;
+   padding: 1rem !important;
 }
