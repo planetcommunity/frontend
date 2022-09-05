@@ -1,8 +1,23 @@
-.plannet_web_login{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    
+.plannet_web_login {
+  background-image: url("../../assets/logo.png");
+  min-height: 100%;
+  min-width: 100%;
+	
+  /* Set up proportionate scaling */
+  width: 100%;
+  height: auto;
+  position: fixed;
+  box-sizing: border-box;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center center;
+  z-index: -1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
+.plannet_web_logins_item{
+width: 300px;
+  z-index: 1;
+}

@@ -5,7 +5,7 @@ import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 import {Login,  Register, NotFoundPage} from './components'
 function App() {
   return (
-    <div>
+    <div className='App'>
       <Router>
         <Routes>
           <Route path="/" element={<Login/>}/>
