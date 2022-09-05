@@ -13,6 +13,8 @@ function Register() {
   const [isError, setIsError] = useState(false);
   const fileInputRef = useRef();
   const session = window.sessionStorage;
+  const [emailShow, setEmailShow] = useState(true);
+  const [aliasShow, setAliasShow] = useState(false);
 
   let [state, setState] = useState({
     loading: false,
@@ -37,18 +39,20 @@ function Register() {
           loading: true,
           successContent: res.data,
         });
+        setEmailShow(false);
+        setAliasShow(true);
       },
       (err) => {
         console.log(err);
-        if(err.code === 'ERR_NETWORK'){
+        if (err.code === "ERR_NETWORK") {
           setResponseErrorMessage("Network Busy!... Please try again shortly");
-        }else{
+        } else {
           setResponseErrorMessage(err.message);
         }
         setIsError(true);
         setTimeout(() => {
           setIsError(false);
-      }, 3000);
+        }, 3000);
         setState({
           ...state,
           loading: false,
@@ -69,28 +73,55 @@ function Register() {
       )}
 
       <div className="plannet_web_register">
-        <Card className="text-center">
-          <Card.Body className="card__body">
-            <div className="input_card_elements">
-              <Card.Text>
-                <Form.Group className="mb-3" controlId="formBasicEmail">
-                  <Form.Control
-                    ref={fileInputRef}
-                    type="email"
-                    placeholder="Enter Email"
-                    required
-                  />
-                </Form.Group>
-              </Card.Text>
-              <Button
-                onClick={() => verifyEmail(fileInputRef.current.value)}
-                id="input_card_elements_next"
-              >
-                Next
-              </Button>
-            </div>
-          </Card.Body>
-        </Card>
+        {emailShow && (
+          <Card className="text-center">
+            <Card.Body className="card__body">
+              <div className="input_card_elements">
+                <Card.Text>
+                  <Form.Group className="mb-3" controlId="formBasicEmail">
+                    <Form.Control
+                      ref={fileInputRef}
+                      type="email"
+                      placeholder="Enter Email"
+                      required
+                    />
+                  </Form.Group>
+                </Card.Text>
+                <Button
+                  onClick={() => verifyEmail(fileInputRef.current.value)}
+                  id="input_card_elements_next"
+                >
+                  Next
+                </Button>
+              </div>
+            </Card.Body>
+          </Card>
+        )}
+
+{aliasShow && (
+          <Card className="text-center">
+            <Card.Body className="card__body">
+              <div className="input_card_elements">
+                <Card.Text>
+                  <Form.Group className="mb-3" controlId="formBasicEmail">
+                    <Form.Control
+                      ref={fileInputRef}
+                      type="email"
+                      placeholder="Enter Email"
+                      required
+                    />
+                  </Form.Group>
+                </Card.Text>
+                <Button
+                  onClick={() => verifyEmail(fileInputRef.current.value)}
+                  id="input_card_elements_next"
+                >
+                  Next
+                </Button>
+              </div>
+            </Card.Body>
+          </Card>
+        )}
       </div>
     </div>
   );
