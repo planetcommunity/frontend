@@ -9,7 +9,7 @@ import Alert from "react-bootstrap/Alert";
 import RegistrationService from "../../services/registrationservice";
 
 function Register() {
-  const [variant, setVariant] = useState("");
+  const [responseErrorMessage, setResponseErrorMessage] = useState("");
   const [isError, setIsError] = useState(false);
   const fileInputRef = useRef();
   const session = window.sessionStorage;
@@ -39,8 +39,16 @@ function Register() {
         });
       },
       (err) => {
-        setVariant(err.message);
+        console.log(err);
+        if(err.code === 'ERR_NETWORK'){
+          setResponseErrorMessage("Network Busy!... Please try again shortly");
+        }else{
+          setResponseErrorMessage(err.message);
+        }
         setIsError(true);
+        setTimeout(() => {
+          setIsError(false);
+      }, 3000);
         setState({
           ...state,
           loading: false,
@@ -55,7 +63,7 @@ function Register() {
       {isError && (
         <div className="plannet_web_notifications">
           <Alert key="danger" variant="danger">
-            This is a {variant} alert—check it out!
+            {responseErrorMessage}
           </Alert>
         </div>
       )}
