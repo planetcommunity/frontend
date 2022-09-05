@@ -11,7 +11,8 @@ import RegistrationService from "../../services/registrationservice";
 function Register() {
   const [responseErrorMessage, setResponseErrorMessage] = useState("");
   const [isError, setIsError] = useState(false);
-  const fileInputRef = useRef();
+  const emailInputRef = useRef();
+  const aliesInputRef = useRef();
   const session = window.sessionStorage;
   const [emailShow, setEmailShow] = useState(true);
   const [aliasShow, setAliasShow] = useState(false);
@@ -44,6 +45,47 @@ function Register() {
       },
       (err) => {
         console.log(err);
+    
+        if (err.code === "ERR_NETWORK") {
+          setResponseErrorMessage("Network Busy!... Please try again shortly");
+        } else {
+          setResponseErrorMessage(err.message);
+        }
+        setIsError(true);
+        setTimeout(() => {
+          setIsError(false);
+        }, 3000);
+        setState({
+          ...state,
+          loading: false,
+          errorMessage: err.message,
+        });
+      }
+    );
+  };
+
+  const verifyAlies = (alies) => {
+    session.setItem("alies", alies);
+    if (alies.length <= 0) {
+      console.log("slies is null");
+
+      alert("Enter alies and try again");
+    }
+
+    RegistrationService.verfyAlies(alies).then(
+      (res) => {
+        console.log("response is" + res.data);
+
+        setState({
+          ...state,
+          loading: true,
+          successContent: res.data,
+        });
+        
+      },
+      (err) => {
+        console.log(err);
+        setAliasShow(true);
         if (err.code === "ERR_NETWORK") {
           setResponseErrorMessage("Network Busy!... Please try again shortly");
         } else {
@@ -80,7 +122,7 @@ function Register() {
                 <Card.Text>
                   <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Control
-                      ref={fileInputRef}
+                      ref={emailInputRef}
                       type="email"
                       placeholder="Enter Email"
                       required
@@ -88,7 +130,7 @@ function Register() {
                   </Form.Group>
                 </Card.Text>
                 <Button
-                  onClick={() => verifyEmail(fileInputRef.current.value)}
+                  onClick={() => verifyEmail(emailInputRef.current.value)}
                   id="input_card_elements_next"
                 >
                   Next
@@ -105,15 +147,15 @@ function Register() {
                 <Card.Text>
                   <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Control
-                      ref={fileInputRef}
-                      type="email"
-                      placeholder="Enter Email"
+                      ref={aliesInputRef}
+                      type="text"
+                      placeholder="Enter Alies"
                       required
                     />
                   </Form.Group>
                 </Card.Text>
                 <Button
-                  onClick={() => verifyEmail(fileInputRef.current.value)}
+                  onClick={() => verifyAlies(aliesInputRef.current.value)}
                   id="input_card_elements_next"
                 >
                   Next

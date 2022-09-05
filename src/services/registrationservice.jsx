@@ -14,6 +14,11 @@ export class RegistrationService {
         return api.get('/user/emailValidation', emailAddress)
     }
 
+    static verfyAlies(alies){
+        console.log(alies);
+        return api.get('/user/alisValidation', alies)
+    }
+
 
 
 }
