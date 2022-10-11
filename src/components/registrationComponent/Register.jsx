@@ -7,6 +7,12 @@ import "../../containers/RegistrationInputFieldsComponent/input.css";
 import { useRef } from "react";
 import Alert from "react-bootstrap/Alert";
 import RegistrationService from "../../services/registrationservice";
+import validator from "validator";
+import VerifyEmail from '../registrationComponent/VerifyEmail'
+import VerifyInitialAlies from '../registrationComponent/VerifyInitialAlies'
+import PasswordConfirmation from '../registrationComponent/PasswordConfirmation'
+import OtherInputs from '../registrationComponent/OtherInputs'
+import { useNavigate } from "react-router-dom";
 
 function Register() {
   const [responseErrorMessage, setResponseErrorMessage] = useState("");
@@ -16,53 +22,29 @@ function Register() {
   const session = window.sessionStorage;
   const [emailShow, setEmailShow] = useState(true);
   const [aliasShow, setAliasShow] = useState(false);
+  const [cardContent, setCardContent] = useState();
+  const navigate = useNavigate()
 
-  let [state, setState] = useState({
-    loading: false,
-    successContent: "",
-    errorMessage: "",
-  });
-
-  const verifyEmail = (emailAddress) => {
-    session.setItem("email", emailAddress);
-    if (emailAddress.length <= 0) {
-      console.log("email is null");
-
-      alert("Enter Email and try again");
-    }
-
-    RegistrationService.verfyEmail(emailAddress).then(
-      (res) => {
-        console.log("response is" + res.data);
-
-        setState({
-          ...state,
-          loading: true,
-          successContent: res.data,
-        });
-        setEmailShow(false);
-        setAliasShow(true);
-      },
-      (err) => {
-        console.log(err);
-    
-        if (err.code === "ERR_NETWORK") {
-          setResponseErrorMessage("Network Busy!... Please try again shortly");
+  const submitRegistration = (user) =>{
+    RegistrationService.userRegistration(user).then(
+      (res)=>{
+        navigate("/code-verification")
+      },(error) => {
+        
+        if (error.code === "ERR_NETWORK") {
+          changeOtherInputsCardContent("Network Busy!... Please try again shortly", true, "");
+        
         } else {
-          setResponseErrorMessage(err.message);
+          changeOtherInputsCardContent(error.message,false, "");
+          
         }
-        setIsError(true);
-        setTimeout(() => {
-          setIsError(false);
-        }, 3000);
-        setState({
-          ...state,
-          loading: false,
-          errorMessage: err.message,
-        });
       }
-    );
-  };
+    )
+  }
+  
+  const verifyPassword = (password)=>{
+    changeOtherInputsCardContent("", false, password);
+  }
 
   const verifyAlies = (alies) => {
     session.setItem("alies", alies);
@@ -70,110 +52,123 @@ function Register() {
       console.log("slies is null");
 
       alert("Enter alies and try again");
-    }
-
+    }else{
+      changeConfirmPasswordCardContent();
+    
     RegistrationService.verfyAlies(alies).then(
       (res) => {
         console.log("response is" + res.data);
-
-        setState({
-          ...state,
-          loading: true,
-          successContent: res.data,
-        });
-        
+        session.setItem("alias", alies)
+        changeConfirmPasswordCardContent();
       },
       (err) => {
         console.log(err);
         setAliasShow(true);
         if (err.code === "ERR_NETWORK") {
-          setResponseErrorMessage("Network Busy!... Please try again shortly");
+          changeAlieasCardContent("Network Busy!... Please try again shortly", false)
         } else {
-          setResponseErrorMessage(err.message);
+          changeAlieasCardContent(err.message, false)
         }
         setIsError(true);
         setTimeout(() => {
-          setIsError(false);
+          changeAlieasCardContent("", false)
         }, 3000);
-        setState({
-          ...state,
-          loading: false,
-          errorMessage: err.message,
-        });
+       
       }
     );
+  }
   };
 
-  return (
-    <div className="plannet_web_login">
-      {isError && (
-        <div className="plannet_web_notifications">
-          <Alert key="danger" variant="danger">
-            {responseErrorMessage}
-          </Alert>
-        </div>
-      )}
+  const verifyEmailAddress = (emailAddress) => {
+    console.log(emailAddress);
+    
+    if (emailAddress.length <= 0) {
+      console.log("email is null");
 
-      <div className="plannet_web_register">
-        {emailShow && (
-          <Card className="text-center">
-            <Card.Body className="card__body">
-              <div className="input_card_elements">
-                <Card.Text>
-                  <Form.Group className="mb-3" controlId="formBasicEmail">
-                    <Form.Control
-                      ref={emailInputRef}
-                      type="email"
-                      placeholder="Enter Email"
-                      required
-                    />
-                  </Form.Group>
-                </Card.Text>
-                <Button
-                  onClick={() => verifyEmail(emailInputRef.current.value)}
-                  id="input_card_elements_next"
-                >
-                  Next
-                </Button>
-              </div>
-            </Card.Body>
-          </Card>
-        )}
+      alert("Enter Email and try again");
+    }else if (!validator.isEmail(emailAddress)){
+      alert("Enter Valid Email and try again");
+    }else{
+      changeAlieasCardContent("", false)
+      
+    RegistrationService.verfyEmail(emailAddress).then(
+      (res) => {
+        console.log("response is" + res.data);
+        session.setItem("email", emailAddress);
+        changeAlieasCardContent("", false)
+        changeAlieasCardContent("", false)
+      },
+      (err) => {
+        console.log(err);
+    
+        if (err.code === "ERR_NETWORK") {
+          changeEmailCardContent("Network Busy!... Please try again shortly", true)
+          
+        } else {
+          changeEmailCardContent(err.message, true)
+          
+        }
+        setIsError(true);
+        setTimeout(() => {
+          changeEmailCardContent("", false)
+        }, 3000);
+    
+      }
+    );
+  }
+  };
 
-{aliasShow && (
-          <Card className="text-center">
-            <Card.Body className="card__body">
-              <div className="input_card_elements">
-                <Card.Text>
-                  <Form.Group className="mb-3" controlId="formBasicEmail">
-                    <Form.Control
-                      ref={aliesInputRef}
-                      type="text"
-                      placeholder="Enter Alies"
-                      required
-                    />
-                  </Form.Group>
-                </Card.Text>
-                <Button
-                  onClick={() => verifyAlies(aliesInputRef.current.value)}
-                  id="input_card_elements_next"
-                >
-                  Next
-                </Button>
-              </div>
-            </Card.Body>
-          </Card>
-        )}
-      </div>
-    </div>
-  );
-}
-
-<VerifyEmail 
+  useState(()=>{
+    setCardContent(<VerifyEmail
         verifyEmailAddress={verifyEmailAddress}
         responseErrorMessage={responseErrorMessage}
         emailInputRef={emailInputRef}
         isError={isError}
-        />
+      />)}
+    );
+
+    const changeOtherInputsCardContent = (responseErrorMessage, isError, password) =>{
+      setCardContent(<OtherInputs
+        submitRegistration={submitRegistration}
+      responseErrorMessage={responseErrorMessage}
+      isError={isError}
+      password={password}
+    />)
+    }
+
+    const changeConfirmPasswordCardContent = () =>{
+      setCardContent(<PasswordConfirmation
+        verifyPassword={verifyPassword}
+      />)
+    }
+
+  const changeEmailCardContent = (responseErrorMessage, isError) =>{
+    setCardContent(<VerifyEmail
+    verifyEmailAddress={verifyEmailAddress}
+    responseErrorMessage={responseErrorMessage}
+    isError={isError}
+  />)
+  }
+
+
+  const changeAlieasCardContent = (responseErrorMessage, isError) =>{
+    setCardContent(<VerifyInitialAlies
+    verifyAliesData={verifyAlies}
+    responseErrorMessage={responseErrorMessage}
+    isError={isError}
+  />)
+  }
+    
+
+  return (
+    < >
+      {cardContent}
+    </>
+  );
+}
+
+
+
+
 
 export default Register;

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 
 import "./register.css";
 import { Button } from "react-bootstrap";
@@ -10,7 +10,15 @@ import Alert from "react-bootstrap/Alert";
 import RegistrationService from "../../services/registrationservice";
 
 
-const VerifyInitialAlies =({aliesInputRef, verifyAliesData, isError, responseErrorMessage}) => {
+const VerifyInitialAlies =({verifyAliesData, isError, responseErrorMessage}) => {
+  const [alieas, setAlieas] = useState("");
+
+  const handleOnChange = (value) => {
+    console.log(value)
+    setAlieas(value)
+  }
+
+
   return (
     <>
     <div className="plannet_web_login">
@@ -30,15 +38,15 @@ const VerifyInitialAlies =({aliesInputRef, verifyAliesData, isError, responseErr
                 <Card.Text>
                   <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Control
-                      ref={aliesInputRef}
                       type="text"
                       placeholder="Enter Alies"
                       required
+                      onChange={(e) => handleOnChange(e.target.value)}
                     />
                   </Form.Group>
                 </Card.Text>
                 <Button
-                  onClick={() => verifyAliesData(aliesInputRef.current.value)}
+                  onClick={() => verifyAliesData(alieas)}
                   id="input_card_elements_next"
                 >
                   Next

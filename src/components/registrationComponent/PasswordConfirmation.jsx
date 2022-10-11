@@ -7,11 +7,7 @@ import { NavLink } from "react-router-dom";
 import Alert from "react-bootstrap/Alert";
 import validator from "validator";
 
-const PasswordConfirmation = ({
-  verifyPassword,
-  responseErrorMessage,
-  isError
-}) => {
+const PasswordConfirmation = ({verifyPassword}) => {
   const [errorMessage, setErrorMessage] = useState("");
   const [confirmErrorMessage, setConfirmErrorMessage] = useState("");
   const [password, setPassword] = useState("");
@@ -53,13 +49,6 @@ const PasswordConfirmation = ({
 
   return (
     <div className="plannet_web_login">
-      {isError && (
-        <div className="plannet_web_notifications">
-          <Alert key="danger" variant="danger">
-            {responseErrorMessage}
-          </Alert>
-        </div>
-      )}
 
       <div className="plannet_web_notifications"></div>
       <div className="plannet_web_logins_item">
@@ -92,7 +81,7 @@ const PasswordConfirmation = ({
             </Card.Text>
 
             <Button  
-            onClick={(e) => verifyPassword(passwordInputRef.current.value)}
+            onClick={(e) => verifyPassword(password)}
             disabled={!dissableNext} id="input_card_elements_next" variant="primary" >Next</Button>
           </Card.Body>
         </Card>

@@ -8,9 +8,17 @@ import { useRef } from "react";
 import Alert from "react-bootstrap/Alert";
 import RegistrationService from "../../services/registrationservice";
 import VerifyInitialAlies from './VerifyInitialAlies'
+import { useState } from 'react';
 
-const VerifyEmail = ({verifyEmailAddress, responseErrorMessage, emailInputRef, isError}) => {
-    
+
+const VerifyEmail = ({verifyEmailAddress, responseErrorMessage, isError}) => {
+  const [email, setEmail] = useState("");
+
+  const handleOnChange = (value) => {
+    console.log(value)
+    setEmail(value)
+  }
+
   return (
     <div>
 
@@ -32,15 +40,15 @@ const VerifyEmail = ({verifyEmailAddress, responseErrorMessage, emailInputRef, i
                 <Card.Text>
                   <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Control
-                      ref={emailInputRef}
                       type="email"
                       placeholder="Enter Email"
                       required
+                      onChange={(e) => handleOnChange(e.target.value)}
                     />
                   </Form.Group>
                 </Card.Text>
                 <Button
-                  onClick={() => verifyEmailAddress(emailInputRef.current.value)}
+                  onClick={() => verifyEmailAddress(email)}
                   id="input_card_elements_next"
                 >
                   Next

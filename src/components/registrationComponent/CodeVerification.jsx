@@ -7,7 +7,6 @@ import "../../containers/RegistrationInputFieldsComponent/input.css";
 
 import Alert from "react-bootstrap/Alert";
 import RegistrationService from "../../services/registrationservice";
-import VerifyInitialAlies from './VerifyInitialAlies'
 
 const CodeVerification = () => {
 
