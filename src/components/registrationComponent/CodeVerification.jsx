@@ -28,9 +28,9 @@ const CodeVerification = () => {
       }
 
     const verifyVerificationCode = (verifyCode) => {
-        console.log(verifyCode);
+        console.log("veryfy code" + verifyCode);
         
-        RegistrationService.verfyCode(verifyCode).then(
+        RegistrationService.verfyPinCode(verifyCode).then(
             
             (res) => {
               console.log("response is" + res.data);
