@@ -169,4 +169,11 @@ function Register() {
   );
 }
 
+<VerifyEmail 
+        verifyEmailAddress={verifyEmailAddress}
+        responseErrorMessage={responseErrorMessage}
+        emailInputRef={emailInputRef}
+        isError={isError}
+        />
+
 export default Register;
