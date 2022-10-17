@@ -1,11 +1,7 @@
 import React, { useState } from "react";
 import "./register.css";
-import { Button } from "react-bootstrap";
-import Form from "react-bootstrap/Form";
-import Card from "react-bootstrap/Card";
 import "../../containers/RegistrationInputFieldsComponent/input.css";
 import { useRef } from "react";
-import Alert from "react-bootstrap/Alert";
 import RegistrationService from "../../services/registrationservice";
 import validator from "validator";
 import VerifyEmail from '../registrationComponent/VerifyEmail'
@@ -18,10 +14,7 @@ function Register() {
   const [responseErrorMessage, setResponseErrorMessage] = useState("");
   const [isError, setIsError] = useState(false);
   const emailInputRef = useRef();
-  const aliesInputRef = useRef();
   const session = window.sessionStorage;
-  const [emailShow, setEmailShow] = useState(true);
-  const [aliasShow, setAliasShow] = useState(false);
   const [cardContent, setCardContent] = useState();
   const navigate = useNavigate()
 
@@ -62,8 +55,7 @@ function Register() {
         changeConfirmPasswordCardContent();
       },
       (err) => {
-        console.log(err);
-        setAliasShow(true);
+       
         if (err.code === "ERR_NETWORK") {
           changeAlieasCardContent("Network Busy!... Please try again shortly", false)
         } else {
@@ -85,9 +77,16 @@ function Register() {
     if (emailAddress.length <= 0) {
       console.log("email is null");
 
-      alert("Enter Email and try again");
+      changeEmailCardContent("Enter Email and try again", false)
+      setTimeout(() => {
+          changeEmailCardContent("", false)
+        }, 2000);
     }else if (!validator.isEmail(emailAddress)){
-      alert("Enter Valid Email and try again");
+      
+      changeEmailCardContent("Enter Valid Email and try again", false)
+      setTimeout(() => {
+        changeEmailCardContent("", false)
+      }, 2000);
     }else{
       changeAlieasCardContent("", false)
       
