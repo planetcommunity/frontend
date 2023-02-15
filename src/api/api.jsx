@@ -3,5 +3,5 @@ import React from 'react'
 import axios from 'axios'
 
 export default axios.create({
-    baseURL: "http://localhost:8099/",
+    baseURL: "http://localhost:8072/planetweb-registration-service/",
 });

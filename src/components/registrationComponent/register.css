@@ -1,6 +1,19 @@
-.plannet_web_registration{
-   display: flex;
-   align-items: center;
-   justify-content: center;
 
+.text-center{
+
+   border-color: black !important;
+   border-style: solid !important;
+    border-width: thin !important;
+   
+}
+
+.plannet_web_notifications{
+   position: absolute;
+   top: 8px;
+   right: 16px;
+}
+
+.card__body{
+   margin-top: 1rem !important;
+   padding: 1rem !important;
 }

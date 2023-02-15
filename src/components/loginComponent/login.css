@@ -1,8 +1,84 @@
-.plannet_web_login{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    
+.plannet_web_login {
+  /* background-image: url("../../assets/logo.png"); */
+  min-height: 100%;
+  min-width: 100%;
+	
+  /* Set up proportionate scaling */
+  width: 100%;
+  height: auto;
+  position: fixed;
+  box-sizing: border-box;
+  background-size: 720px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
+.plannet_web_logins_item{
+  width: 400px; 
+}
+
+.plannet_web_logins_item_header{
+  text-align: center;
+}
+.plannet_web_logins_item_header h1{
+  font-weight: 400;
+  font-size: 56px;
+  margin-bottom: 0px;
+  text-transform: uppercase;
+}
+.plannet_web_logins_item_header h3{
+  font-size: 32px;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+.plannet_web_logins_item_form{
+  margin: 15% 0 20%;
+  text-align: center;
+  max-width: 400px;
+  width: 100%;
+}
+.plannet_web_logins_item_form label{
+  font-size: 26px;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+}
+.plannet_web_logins_item_form .form-control{
+  border-radius: 0;
+  border: 1px solid #000;
+}
+.plannet_web_logins_item_footer h4{
+  font-size: 18px;
+  text-transform: uppercase;
+}
+.plannet_web_logins_item_footer img{
+  width: 32px;
+}
+.plannet_web_logins_item_footer h4 a{
+  color: #000;
+}
+.plannet_web_logins_item_footer{
+  text-align: center;
+}
+
+@media screen and (max-width: 575px) {
+  .plannet_web_logins_item_header h1{
+    font-size: 30px;
+  }
+  .plannet_web_logins_item_header h3{
+    font-size: 18px;
+  }
+  .plannet_web_logins_item_form{
+    margin: 9px 0 12px;
+  }
+  .plannet_web_logins_item_form label{
+    font-size: 18px;
+    margin-bottom: 2px;
+  }
+  .plannet_web_logins_item_footer h4{
+    font-size: 13px;
+  }
+}

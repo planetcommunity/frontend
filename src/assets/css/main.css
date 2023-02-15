@@ -1,0 +1,218 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap');
+
+*{	
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+:root{
+    --white: #fff;
+	--bg: #141416;
+    --blue: rgb(19,58,198);
+    --bg-card: #23262f;
+    --hr: #353945;
+    --ff: 'Rubik', sans-serif;
+}
+
+.home-landing{
+	font-size: 14px;
+	font-weight: 400;
+    line-height: 1.6;
+	min-height: 100vh;
+	overflow-x: hidden;
+	color: var(--white);
+    font-family: var(--ff);
+	word-break: break-word;
+	background: var(--bg) url('../images/background.jpg') repeat center / cover;
+}
+
+.lead{
+	font-size: 1.1em;
+}
+
+.container{
+	max-width: 1060px;
+    margin: auto;
+	width: 100%;
+}
+
+
+
+.planet-app{
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    position: absolute;
+    align-items: center;
+    justify-content: center;
+}
+
+@keyframes fade {
+    0% { opacity: 0; visibility: hidden; }
+    100% { opacity: 1; visibility: visible; }
+}
+
+.planet-polygon{
+    opacity: 0;
+    margin: auto;
+    width: 280px;
+    height: 328px;
+    visibility: hidden;
+    position: relative;
+    /* background: rgb(204,82,87);
+    background: -moz-linear-gradient(0deg, rgba(204,82,87,1) 0%, rgba(224,156,77,1) 14%, rgba(245,215,97,1) 36%, rgba(77,156,72,1) 58%, rgba(24,160,205,1) 78%, rgba(208,101,153,1) 100%);
+    background: -webkit-linear-gradient(0deg, rgba(204,82,87,1) 0%, rgba(224,156,77,1) 14%, rgba(245,215,97,1) 36%, rgba(77,156,72,1) 58%, rgba(24,160,205,1) 78%, rgba(208,101,153,1) 100%);
+    background: linear-gradient(0deg, rgba(204,82,87,1) 0%, rgba(224,156,77,1) 14%, rgba(245,215,97,1) 36%, rgba(77,156,72,1) 58%, rgba(24,160,205,1) 78%, rgba(208,101,153,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#cc5257",endColorstr="#d06599",GradientType=1); */
+    clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50.4% 100%, 0 75%, 0 25%);
+    animation: fade ease-out 4s 0.5s forwards;
+}
+.planet-circle{
+    background-color: #fff;
+    position: absolute;
+    border-radius: 50%;
+    overflow: hidden;
+    left: 0px;
+    top: 24px;
+    bottom: 24px;
+    right: 0px;
+}
+.middle-icon{
+    width: 60px;
+    height: 60px;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    cursor: pointer;
+    margin: auto;
+    z-index: 1;
+    content: "";
+    position: absolute;
+    border-radius: 50px;
+    transition: all 0.35s linear;
+    background: var(--bg) url('../images/middle-icon.png') repeat center / cover;
+}
+.middle-icon.active{
+    filter: brightness(132%) contrast(105%) hue-rotate(25deg);
+}
+.middle-line{
+    background-color: #999;
+    position: absolute;
+    margin-top: -1px;
+    margin: auto;
+    height: 2px;
+    width: 50%;
+    top: 50%;
+}
+.middle-line-left{
+    left: 0;
+}
+.middle-line-right{
+    right: 0;
+}
+.bottom-line{
+    transform-origin: top center;
+    background-color: #999;
+    position: absolute;
+    margin-top: -1px;
+    margin: auto;
+    height: 51%;
+    width: 2px;
+    left: 50%;
+    top: 50%;
+}
+.bottom-line-1{
+    transform: rotate(30deg);
+}
+.bottom-line-2{
+    transform: rotate(-30deg);
+}
+
+.heart-icon{
+    border: 1px solid #eee;
+    border-radius: 50%;
+    position: absolute;
+    cursor: pointer;
+    max-width: 50px;
+    bottom: 25%;
+    left: 13%;
+}
+.hands-icon{
+    border: 1px solid #eee;
+    border-radius: 50%;
+    position: absolute;
+    cursor: pointer;
+    max-width: 50px;
+    bottom: 25%;
+    right: 13%;
+}
+
+.heart-links{
+    flex-direction: column;
+    position: absolute;
+    margin-top: -1px;
+    display: flex;
+    width: 53%;
+    top: 39%;
+    height: 50%;
+    transform: rotate(-30deg);
+    transform-origin: center center;
+    clip-path: polygon(100% 51%, 10% -5%, -5% 115%);
+}
+.heart-links-revert{
+    clip-path: polygon(100% -11%, 1% 50%, 107% 115%);
+    transform: rotate(30deg);
+    right: 0;
+}
+.heart-links button{
+    border: none;
+    width: 100%;
+    height: 50%;
+    flex-grow: 1;
+    color: #fff;
+    font-weight: 700;
+    position: relative;
+    cursor: pointer;
+    letter-spacing: 0.1em;
+}
+.heart-links button span{
+    position: absolute;
+}
+.heart-links button:first-child span{
+    top: 50%;
+    left: 22%;
+}
+.heart-links button:last-child span{
+    top: 30%;
+    left: 22%;
+    transform: rotate(-12deg);
+}
+.heart-links-revert button:first-child span{
+    top: 57%;
+    left: 53%;
+}
+.heart-links-revert button:last-child span{
+    top: 21%;
+    left: 51%;
+    transform: rotate(4deg);
+}
+
+.planet-polygon svg{
+    position: absolute;
+    z-index: 0;
+    top: 0;
+    left: 0;
+    max-width: 100%;
+}
+
+.modal-header{
+    border: none !important;
+}
+
+.modal{
+    color: #141416;
+}
